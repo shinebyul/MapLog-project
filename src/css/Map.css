@@ -1,0 +1,151 @@
+/* Map.js */
+.find{
+    position: absolute;
+    right: 30px;
+    top: 50px;
+    overflow: hidden;
+    z-index: 100;
+    background-color: white;
+    border-radius: 20px;
+    padding: 5px;
+}
+.minibar{
+    position: absolute;
+    right: 30px;
+    bottom: 90px;
+    overflow: hidden;
+    z-index: 100;
+    background-color: white;
+    border-radius: 30px;
+    padding: 10px;
+}
+.minibar button{
+    width: auto;
+    background-color: transparent;
+    font-weight: bolder;
+    border: none;
+}
+
+
+/* all */
+Link{
+    text-decoration: none;
+    color: #FCF7EC;
+}
+#map{
+    width: 100vw;
+    height: 100vh;
+}
+#home{
+    display: flex;
+}
+
+/* mainbar */
+.mainbar{
+    height: 98vh;
+    width: 100px;
+    min-width: 100px;
+    background-color: #AFC2AE;
+    z-index: 200;
+    padding-top: 20px;
+}
+.mainbar button{
+    border: none;
+    width: 100%;
+    height: 80px;
+    font-weight: bolder;
+}
+.mainbar>button:hover, .mainbar>button:active{
+    background-color: #FCF7EC;
+    color: #9BA79C;
+}
+.loginbtn, .homebtn{
+    background-color: #AFC2AE;
+    color: #FCF7EC;
+}
+
+
+
+
+/*panel*/
+/* .mymemoActive, .mylctActive, .mypageActive, .mainActive{
+    position: absolute;
+    margin-left: 100px;
+    z-index: 100;
+    background-color: #FCF7EC;
+    width: 30vw;
+    height: 100vh;
+    transition: 0.5s;
+    padding-top: 10px;
+} 
+.mymemoInactive, .mylctInactive, .mypageInactive, .mainInactive{
+    position: absolute;
+    margin-left: -40vw;
+}*/
+.btnActive{
+    color: #9BA79C;
+    background-color: #FCF7EC;
+}
+.btnInactive{
+    color: #FCF7EC;
+    background-color: #AFC2AE;
+}
+.mainActive button{
+    margin: 15px;
+    padding-bottom: 10px;
+}
+.selec{
+    border: none;
+    border-bottom: 1px solid black;
+    background: transparent;
+}
+.notselec{
+    border: none;
+    background: transparent;
+}
+
+
+/*Mylocation
+.mylocation  button{
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    
+}
+.folderlist > button{
+    width: 100%;
+    padding: 20px;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.075);
+    display: flex;
+}
+.more{
+    position: absolute;
+    right: 10px;
+    width: auto;
+}
+.more:hover{
+    font-weight: bolder;
+}
+
+.locationList button{  
+    width: 100%;
+    padding: 20px;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.075);
+}
+
+.location > button{  
+    position: absolute;
+    right: 10px;
+    width: auto;
+    margin-top: 10px;
+}
+.folderlist > button:hover, .locationList button:hover{
+    background-color: #f0e9d83b;
+} 
+*/
+
+
+.search{
+    width: 0;
+    transition: all 5s;
+}
