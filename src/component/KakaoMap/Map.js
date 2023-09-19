@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
-import MiniBar from "./MiniBar";
+import MiniBar from "../MiniBar";
 
 const {kakao}=window;
 

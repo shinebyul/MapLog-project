@@ -5,10 +5,11 @@ import "../css/Map.css";
 import MyPlace from '../component/Drawer/MyPlace';
 import MyPage from '../component/Drawer/MyPage';
 import MyPost from '../component/Drawer/MyPost';
-import Map from '../component/Map'
+import Map from '../component/KakaoMap/Map'
 import MiniBar from '../component/MiniBar';
 import { LoginStore } from '../zustand/LoginStore';
 import Logout from '../component/Logout';
+import SearchPlace from '../component/KakaoMap/SearchPlace';
 
 const Main=(props)=>{
 
@@ -27,6 +28,7 @@ const Main=(props)=>{
             navigate('/Login');
         }
     }
+
 
     function MypostClick(){
         if(isLogin){
@@ -71,16 +73,17 @@ const Main=(props)=>{
 
             {mypost ? <div><MyPost/></div> : <></>}
             {myplace ? <div><MyPlace/></div> : <></>}
-            {mypage ? <MyPage/> : <></>}
+            {mypage ? <div><MyPage/></div> : <></>}
 
             <div>
                 <MiniBar/>
-                <input 
+                {/* <input 
                     className='find'
                     type='text'
                     placeholder='어떤 장소를 찾으시나요?'
-                ></input> 
-                <Map/>
+                ></input>  */}
+                <SearchPlace/>
+                {/* <Map/> */}
             </div>
         </div>
     );

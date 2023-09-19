@@ -4,7 +4,6 @@ import axios from "axios";
 import { LoginStore } from "../zustand/LoginStore";//별추가-로그인상태 넘기기기
 
 
-
 const Login=(props)=>{
 
   const {isLogin}=LoginStore();//별추가-로그인상태 넘기기
@@ -36,20 +35,27 @@ const Login=(props)=>{
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (id === "") {
-      showError("Id is required");
-    } else {
+    // if (id === "") {
+    //   showError("Id is required");
+    // } else {
+    //   showSuccess();
+    // }
+
+    // if (password === "") {
+    //   showError("Password is required");
+    // } else {
+    //   showSuccess();
+    // }
+    if(id===''||password===''){
+      showError('empty');
+    }
+    else{
       showSuccess();
+      // Call your API here or handle form submission logic
+      gotoLogin();
     }
 
-    if (password === "") {
-      showError("Password is required");
-    } else {
-      showSuccess();
-    }
-
-    // Call your API here or handle form submission logic
-    gotoLogin();
+    
   };
 
   const navigate = useNavigate();
