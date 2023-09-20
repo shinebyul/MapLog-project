@@ -20,10 +20,15 @@ function Prac() {
       content: content,
     };
 
+    const formData = new FormData();
+    formData.append("author", author);
+    formData.append("title", title);
+    formData.append("content", content);
+
     try {
-      const response = await axios.post(apiUrl, data, {
+      const response = await axios.post(apiUrl, formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       });
 
