@@ -10,12 +10,12 @@ function Map() {
 
   // 지도 초기화
   useEffect(() => {
-    // navigator.geolocation.getCurrentPosition((position) => {
-    //     const lat = position.coords.latitude, // 위도
-    //     lon = position.coords.longitude; // 경도
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude, // 위도
+        lon = position.coords.longitude; // 경도
 
-    //     const locPosition = new window.kakao.maps.LatLng(lat, lon);
-    // });
+      const locPosition = new window.kakao.maps.LatLng(lat, lon);
+    });
 
     if (container.current) {
       const options = {
