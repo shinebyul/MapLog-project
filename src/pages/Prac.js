@@ -4,14 +4,12 @@ import Dropzone from "react-dropzone";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
+function Prac() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [author, setAuthor] = useState("");
 
-
- function Prac(){
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [author, setAuthor] = useState('');
-
-  const apiUrl = 'http://43.200.8.152:8000/postcreate/'; // 실제 API의 URL로 변경해야 합니다.
+  const apiUrl = "http://43.200.8.152:8000/postcreate/"; // 실제 API의 URL로 변경해야 합니다.
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,36 +23,35 @@ import { Link, useNavigate } from "react-router-dom";
     try {
       const response = await axios.post(apiUrl, data, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       // 성공적으로 데이터를 보낸 경우
-      alert('성공');
-      console.log('성공적으로 데이터를 보냈습니다.');
-      console.log('응답 데이터:', response.data);
+      alert("성공");
+      console.log("성공적으로 데이터를 보냈습니다.");
+      console.log("응답 데이터:", response.data);
 
       // 이후 필요한 작업을 수행하실 수 있습니다.
-
     } catch (error) {
       // 요청이 실패한 경우
-      alert('fail');
-      console.error('데이터를 보내는 중 오류가 발생했습니다:', error);
+      alert("fail");
+      console.error("데이터를 보내는 중 오류가 발생했습니다:", error);
     }
   };
 
-
-
   const [data, setData] = useState();
 
-  const onClick = async()=>{
-    try{
-      const response = await axios.get('http://43.200.8.152:8000/postlist/');  
-      setData(response.data);  
-    }catch(e){
+  const onClick = async () => {
+    try {
+      const response = await axios.get("http://43.200.8.152:8000/postlist/", {
+        withCredentials: true,
+      });
+      setData(response.data);
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   // const handleFetchData = async () => {
   //   try {
@@ -73,38 +70,58 @@ import { Link, useNavigate } from "react-router-dom";
   //   }
   // };
 
-
-
   return (
     <div>
       <h1>기록 작성</h1>
       <form onSubmit={handleSubmit}>
-      <div>
+        <div>
           <label>author:</label>
-          <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} />
+          <input
+            type="text"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
         </div>
         <div>
           <label>기록 제목:</label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </div>
         <div>
           <label>기록 내용:</label>
-          <textarea value={content} onChange={(e) => setContent(e.target.value)} />
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
         </div>
         <button type="submit">저장</button>
       </form>
       <div>
         <button onClick={onClick}>불러오기</button>
+        {data && (
+          <textarea
+            rows={7}
+            value={JSON.stringify(data, null, 2)}
+            readOnly={true}
+          />
+        )}
       </div>
-      {data && <textarea rows={7} value={JSON.stringify(data, null, 2)} readOnly={true} />}
-      <Link to='/'>홈으로</Link>
-      
+      {/* {data && (
+        <textarea
+          rows={7}
+          value={JSON.stringify(data, null, 2)}
+          readOnly={true}
+        />
+      )} */}
+      <Link to="/">홈으로</Link>
     </div>
   );
- }
+}
 
- export default Prac;
-
+export default Prac;
 
 // import * as React from 'react';
 // import { styled } from '@mui/material/styles';
@@ -129,7 +146,7 @@ import { Link, useNavigate } from "react-router-dom";
 //       }),
 //     );
 //   }
-  
+
 //   const Demo = styled('div')(({ theme }) => ({
 //     backgroundColor: theme.palette.background.paper,
 //   }));
@@ -186,4 +203,3 @@ import { Link, useNavigate } from "react-router-dom";
 // }
 
 // export default Prac;import React, {useState } from 'react';
-
