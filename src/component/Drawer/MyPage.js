@@ -8,7 +8,7 @@ function MyPage() {
     e.preventDefault();
     if (window.confirm("정말로 탈퇴하시겠습니까?ㅜ ")) {
       axios
-        .delete(" http://43.200.8.152:8000/del/")
+        .delete(" http://3.39.142.157:8000/del/")
         .then(function (response) {
           // handle success
           console.log("회원정보 삭제 성공");

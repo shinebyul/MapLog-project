@@ -96,7 +96,7 @@ const SignUp = (props) => {
 
     axios
       .post(
-        "http://43.200.8.152:8000/register/", //http://ec2-43-200-8-152.ap-northeast-2.compute.amazonaws.com:8000/register/
+        "http://3.39.142.157:8000/register/", //http://ec2-43-200-8-152.ap-northeast-2.compute.amazonaws.com:8000/register/
         {
           username: name,
           useremail: id,

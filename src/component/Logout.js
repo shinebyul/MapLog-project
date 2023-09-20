@@ -7,7 +7,7 @@
 
 //   if (window.confirm("로그아웃 하시겠습니까?")) {
 //     axios
-//       .get(" http://43.200.8.152:8000/logout/")
+//       .get(" http://3.39.142.157:8000/logout/")
 //       .then((result) => {
 //         LoginStore.setState({ isLogin: false });
 //         alert("로그아웃 성공");

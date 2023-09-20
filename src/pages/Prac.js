@@ -9,7 +9,7 @@ function Prac() {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
 
-  const apiUrl = "http://43.200.8.152:8000/postcreate/"; // 실제 API의 URL로 변경해야 합니다.
+  const apiUrl = "http://3.39.142.157:8000/postcreate/"; // 실제 API의 URL로 변경해야 합니다.
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +44,7 @@ function Prac() {
 
   const onClick = async () => {
     try {
-      const response = await axios.get("http://43.200.8.152:8000/postlist/", {
+      const response = await axios.get("http://3.39.142.157:8000/postlist/", {
         withCredentials: true,
       });
       setData(response.data);

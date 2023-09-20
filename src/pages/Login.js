@@ -9,7 +9,7 @@ const Login = (props) => {
   const { isLogin } = LoginStore(); //별추가-로그인상태 넘기기
 
   const Rest_api_key = "c684aed1126dd79ff99c6f8e0964d4fa"; //REST API KEY
-  const redirect_uri = "http://43.200.8.152:8000/kakao/"; //Redirect URI
+  const redirect_uri = "http://3.39.142.157:8000/kakao/"; //Redirect URI
   // oauth 요청 URL
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${Rest_api_key}&redirect_uri=${redirect_uri}&response_type=code`;
   const handleLogin = () => {
@@ -60,7 +60,7 @@ const Login = (props) => {
   const gotoLogin = () => {
     axios
       .post(
-        "http://43.200.8.152:8000/login/",
+        "http://3.39.142.157:8000/login/",
         {
           useremail: id,
           password: password,
