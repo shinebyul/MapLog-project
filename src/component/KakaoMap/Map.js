@@ -1,13 +1,17 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import MiniBar from "../MiniBar";
+import MapContainer from "./Mapcontainer";
+import SearchPlace from "./SearchPlace";
+import { MapStore } from "../../zustand/MapStore";
+
 
 const {kakao}=window;
 
 function Map(){
 
     const container = useRef(null); // 지도를 담을 영역의 DOM 레퍼런스
-    const [map, setMap] = useState(null); // 지도 인스턴스를 저장할 state
+    const {map, setMap} = MapStore(); // 지도 인스턴스를 저장할 state
     
 
     // 지도 초기화
@@ -27,6 +31,8 @@ function Map(){
 
             const initialMap = new window.kakao.maps.Map(container.current, options);
             setMap(initialMap);
+
+
         }
     }, []); //[container]
    
@@ -49,12 +55,14 @@ function Map(){
         }
     };
 
-
+    
 
     return(
         <>
             <div id='map' ref={container}></div> 
             <MiniBar placeMarker={placeMarker}/>
+            <SearchPlace/>
+            <MapContainer />
         </>
     );
 }

@@ -3,10 +3,11 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { folderdata } from '../data';
+import { updateFolderData } from '../data';
 
 
-
-export default function LongMenu() {
+export default function LongMenu({folder}) {
 
   const options = [
     '이름수정',
@@ -23,6 +24,25 @@ export default function LongMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  function optionClick(option){
+    if(option==='이름수정'){
+      editFolder(folder.id);
+    }
+    else if(option==='삭제'){
+      console.log(folder.id);
+      deleteFolderById(folder.id);
+    }
+  }
+
+  function deleteFolderById(id) {
+    const updatedFolderData = folderdata.filter((folder) => folder.id !== id);
+    updateFolderData(updatedFolderData); // 데이터 업데이트 함수를 호출하여 상태 업데이트
+  }
+
+  function editFolder(id){
+    
+  }
 
   return (
     <div>
@@ -53,7 +73,7 @@ export default function LongMenu() {
       >
         {options.map((option) => (
           <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-            {option}
+            <button onClick={()=>optionClick(option)}>{option}</button>
           </MenuItem>
         ))}
       </Menu>

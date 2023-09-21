@@ -5,8 +5,10 @@ import MapContainer from './Mapcontainer';
 
 const SearchPlace = () => {
   const [inputText, setInputText] = useState('');
-  const [place, setPlace] = useState('');
+  //const [place, setPlace] = useState('');
   const {searchOn}=SearchStore();
+
+  const {place}=SearchStore();
 
   const onChange = (e) => {
     setInputText(e.target.value);
@@ -14,7 +16,8 @@ const SearchPlace = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPlace(inputText);
+    SearchStore.setState({place:inputText});
+    //setPlace(inputText);
     SearchStore.setState({searchOn:true});
     setInputText('');
   };
@@ -25,7 +28,7 @@ const SearchPlace = () => {
         <input placeholder="Search Place..." onChange={onChange} value={inputText} />
         <button type="submit">검색</button>
       </form>
-      <MapContainer searchPlace={place} />
+      {/* <MapContainer searchPlace={place} /> */}
     </>
   );
 };

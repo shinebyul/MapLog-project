@@ -1,14 +1,9 @@
 import { useEffect, useState } from "react";
 import { postData } from "../Api/PostData";
 import { uniqBy, filter } from "lodash";
-//mui
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+//this
+import { mypostdata } from "../../data";//new
+import { savedlocation } from "../../data";//new
 
 function MyPost(){
     
@@ -18,10 +13,7 @@ function MyPost(){
     const[postDetail,setPostDetail]=useState(null); //상세 기록 내용 저장
     const[prePage,setPrePage]=useState(0); // 목록으로 돌아갈 때 이전 목록이 어떤 목록이었는지 저장할 state
 
-    //mui
-    const Demo = styled('div')(({ theme }) => ({
-        backgroundColor: theme.palette.background.paper,
-      }));
+
 
     //내기록 data import
     useEffect(()=>{
@@ -33,11 +25,32 @@ function MyPost(){
     },[]);
 
     //장소별 보기를 위해 중복값 제거한 배열
-    const viewByPlace = uniqBy(PostData,'userId'); 
+    //const viewByPlace = uniqBy(PostData,'userId'); //pre
+    
+    
+    const [placeLists,setPlaceLists]=useState([]);
+    function ViewByPlace(){
+        // place_id 중복값 제거
+        const placeID = uniqBy(mypostdata, 'place_id'); // mypostdata에서 place_id 중복 제거
 
-    //장소별 보기 클릭했을 때
+        // savedlocation에서 place_id와 일치하는 데이터를 찾아서 placeLists에 추가
+        const filteredPlaceLists = [];
+        for (let i = 0; i < placeID.length; i++) {
+            const currentPlaceID = placeID[i].place_id;
+            const matchingLocation = savedlocation.find(location => location.place_id === currentPlaceID);
+            if (matchingLocation) {
+                filteredPlaceLists.push(matchingLocation);
+            }
+        }
+
+        setPlaceLists(filteredPlaceLists);
+        setType(3);
+    }
+
+    //장소별 보기에서 장소 클릭했을 때
     function PlaceClick(data){//data = click한 data
-        const list = filter(PostData,{userId:data.userId}) 
+        //const list = filter(PostData,{userId:data.userId}) //pre
+        const list = filter(mypostdata,{place_id:data}); //new
         setPostList(list);
         setPrePage(type);
         setType(1);
@@ -55,10 +68,10 @@ function MyPost(){
         // type=0 이면 전체보기
         if(type===0){
             return <div>
-                    <button style={{marginLeft:'350px', border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>setType(3)}>장소별로 보기</button>
+                    <button style={{marginLeft:'350px', border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>ViewByPlace()}>장소별로 보기</button> {/* onClick={()=>setType(3) */}
                     <div style={{height:'88vh'}}>
                         <ul style={{listStyle:'none'}}>
-                            {PostData.map(post =>(
+                            {mypostdata.map(post =>( //PostData.map(post =>(
                                 <li 
                                     key={post.id} 
                                     style={{borderBottom:'solid 1px black', 
@@ -79,18 +92,18 @@ function MyPost(){
         // type=3 이면 장소별로 보기
         else if(type===3){
             return <div>
-                    <button style={{marginLeft:'390px', border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>setType(0)}>전체 보기</button>
+                    <button style={{marginLeft:'390px', border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>setType(0)}>전체 보기</button>   {/* onClick={()=>setType(0) */}
                     <div style={{height:'88vh'}}> 
                         <ul style={{listStyle:'none'}}>
-                            {viewByPlace.map(post =>(
+                            {placeLists.map(data =>( //viewByPlace.map(post =>(
                                 <li 
-                                    key={post.id} 
+                                    key={data.place_id} 
                                     style={{borderBottom:'solid 1px black', 
                                     width:'90%', paddingBottom:'5px'}}>
                                     <button
-                                        onClick={()=>PlaceClick(post)} 
+                                        onClick={()=>PlaceClick(data.place_id)} 
                                         style={{background:'transparent', 
-                                        border:'none'}}>{post.userId}</button></li>
+                                        border:'none'}}>{data.place_name}</button></li>//border:'none'}}>{post.userId}</button></li>
                             ))}
                         </ul>        
                     </div>
@@ -124,7 +137,7 @@ function MyPost(){
             return <div style={{padding:'45px'}}>
                 <div style={{height:'80.5vh'}}>
                     <h3>{postDetail? postDetail.title:''}</h3>
-                    <p>{postDetail? postDetail.body:''}</p>
+                    <p>{postDetail? postDetail.content:''}</p>{/* <p>{postDetail? postDetail.body:''}</p>*/}
                     <div style={{display:'flex', marginTop:'30px'}}>
                         <button style={{marginRight:'auto',border:'none', background:'transparent', fontWeight:'bold'}}>삭제</button>
                         <button style={{border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>setType(prePage)}>목록으로</button>

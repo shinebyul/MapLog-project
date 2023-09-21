@@ -3,7 +3,7 @@ var folderdata=[
     {
         id : 0,
         name : '폴더1',
-        place_id : [7949668, 21801734]
+        place_id : [7949668, 21801734]//location
     },
     {
         id : 1,
@@ -17,8 +17,12 @@ var folderdata=[
     }
 ]
 
+function updateFolderData(newData) {
+  folderdata = newData;
+}
+
 //저장된 모든 장소 
-const location=[
+var savedlocation=[
     {
         place_id : 7949668,
         place_name : '세종대학교',
@@ -27,6 +31,7 @@ const location=[
         place_phone : '02-3408-3114',
         place_x : 127.07425954579499,
         place_y : 37.55060285303035
+        
 
     },
     {
@@ -73,7 +78,44 @@ const location=[
         place_phone : '070-4128-4408',
         place_x : 127.054245261341,
         place_y : 37.5415875361892
-    }
+    },
+    {
+        place_id : 8424960,
+        place_name : '수생식물원',
+        place_address : '서울 용산구 한남동 772-1',
+        place_road_address : '',
+        place_phone : '',
+        place_x : 126.994405600326,
+        place_y : 37.543524398034
+    },
+    {
+        place_id : 15155364,
+        place_name : '서해대교',
+        place_address : '경기 평택시 포승읍 신영리',
+        place_road_address : '',
+        place_phone : '',
+        place_x : 126.83267533693,
+        place_y : 36.9479493146109
+    },
+    {
+        place_id : 11081458,
+        place_name : '망상해변',
+        place_address : '강원특별자치도 동해시 망상동 393-100',
+        place_road_address : '강원특별자치도 동해시 동해대로 6270-10',
+        place_phone : '033-530-2232',
+        place_x : 129.090473530107,
+        place_y : 37.5933739406532
+    },
+    {
+        place_id : 8100113,
+        place_name : '천곡황금박쥐동굴',
+        place_address : '강원특별자치도 동해시 천곡동 1003',
+        place_road_address : '강원특별자치도 동해시 동굴로 50',
+        place_phone : '033-539-3630',
+        place_x : 129.1101638324846,
+        place_y : 37.51734570193119
+    },
+    ////
 ]
 
 var userdata=[
@@ -85,41 +127,67 @@ var userdata=[
 ]
 
 
-var memodata=[
+var mypostdata=[
     {
         id:0,
-        postdate: '20230730',
-        posttitle: '오늘 장소 일기1',
-        postcontent: 'brbrbrbrbr',
-        update: '00',
-        userId: 'qufdl8382@gmail.com',
-        _status : 'brbr', //로그인 상태
-        area : '세종대학교'
+        date: '20210730',
+        title: '제목1',
+        content: '세종대학교에서',
+        usermail: 'nuni1110@gmail.com',
+        place_id : 7949668
     },
     {
         id:1,
-        postdate: '20230728',
-        posttitle: '오늘 장소 일기2',
-        postcontent: 'brbrbrbrbr',
-        update: '00',
-        userId: 'qufdl8382@gmail.com',
-        _status : 'brbr',
-        area:'세종대학교'
+        date: '20210811',
+        title: '제목2 ',
+        content: '수생식물원에서',
+        usermail: 'nuni1110@gmail.com',
+        place_id : 8424960
     },
     {
         id:2,
-        postdate: '20230623',
-        posttitle: '오늘 장소 일기3',
-        postcontent: 'brbrbrbrbr',
-        update: '00',
-        userId: 'qufdl8382@gmail.com',
-        _status : 'brbr',
-        area:'건국대학교'
-    }
+        date: '20220630',
+        title: '제목3',
+        content: '세종대학교에서 2',
+        usermail: 'nuni1110@gmail.com',
+        place_id : 7949668
+    },
+    {
+        id:3,
+        date: '20220711',
+        title: '제목4 ',
+        content: '수생식물원에서2',
+        usermail: 'nuni1110@gmail.com',
+        place_id : 8424960
+    },
+    {
+        id:4,
+        date: '20220811',
+        title: '제목5 ',
+        content: '수생식물원에서3',
+        usermail: 'nuni1110@gmail.com',
+        place_id : 8424960
+    },
+    {
+        id:5,
+        date: '20230211',
+        title: '제목6 ',
+        content: '동해 - 망상해변에서 ',
+        usermail: 'nuni1110@gmail.com',
+        place_id : 11081458
+    },
+    {
+        id:6,
+        date: '20230311',
+        title: '제목7 ',
+        content: '동해 - 박쥐동굴에서 ',
+        usermail: 'nuni1110@gmail.com',
+        place_id : 8100113
+    },
+
+    
 ]
 
-var postlocation=[
-    {area : '세종대학교'}, {area: '건국대학교'}
-]
 
-export {folderdata, userdata, memodata, postlocation};
+
+export {folderdata, userdata, mypostdata,  savedlocation, updateFolderData};

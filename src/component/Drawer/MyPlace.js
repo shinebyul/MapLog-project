@@ -65,8 +65,15 @@ import FolderIcon from '@mui/icons-material/Folder';
 import LongMenu from '../More';
 import { folderdata } from '../../data';
 import Typography from '@mui/material/Typography';
+import { savedlocation } from '../../data';
+import { MapStore } from '../../zustand/MapStore';
+import { updateFolderData } from '../../data';
+
+const {kakao}=window;
 
 export default function MyPlace() {
+  const {map,setMap}=MapStore();
+
   const Demo = styled('div')(({ theme }) => ({
     backgroundColor: '#FCF7EC',
     // backgroundColor: theme.palette.background.paper,
@@ -77,15 +84,89 @@ export default function MyPlace() {
     // backgroundColor: theme.palette.background.paper,
   }));
 
-const[folderClick1,setFolderClick1]=React.useState(true);
-const[folderDetail1,setFolderDetail1]=React.useState([]);
-const[selectedFolder, setSelectedFolder]=React.useState([]);
+const[folderClick,setFolderClick]=React.useState(true);
+const[folderDetail,setFolderDetail]=React.useState([]);
 
-function FolderClick1(data){
-  setFolderDetail1(data.location);
-  setFolderClick1(!folderClick1);
+function FolderClick(data){
+    const folderDetailIndexes = [];
+    for (let i = 0; i < data.place_id.length; i++) {
+      const currentPlaceId = data.place_id[i];
+      for (let j = 0; j < savedlocation.length; j++) {
+        if (savedlocation[j].place_id === currentPlaceId) {
+          folderDetailIndexes.push(j);
+        }
+      }
+    }
+    setFolderDetail(folderDetailIndexes);
+    setFolderClick(!folderClick);
+
 }
 
+//const[preMarker,setPreMarker]=React.useState(null);
+const[preInfo,setPreInfo]=React.useState(null);
+
+function PlaceClick(loc){
+    if(preInfo){
+        preInfo.close();
+    }
+    var iwContent = '<div style="padding:5px;">'
+                    +loc.place_name+'<br/>'
+                    +loc.place_address+'<br/>'
+                    +loc.place_phone
+                    +'</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    var iwPosition = new kakao.maps.LatLng(loc.place_y,loc.place_x);  //인포윈도우 표시 위치입니다
+    var iwRemoveable = true;
+
+    var infowindow = new kakao.maps.InfoWindow({
+        map: map, // 인포윈도우가 표시될 지도
+        position : iwPosition, 
+        content : iwContent,
+        removable : iwRemoveable
+    });
+    setPreInfo(infowindow);
+    // if(preMarker){
+    //     preMarker.setMap(null);
+    // }
+    // // 마커가 표시될 위치입니다 
+    // console.log(loc.place_x + '/' + loc.place_y);
+    // var markerPosition  = new kakao.maps.LatLng(loc.place_y,loc.place_x); 
+
+    // // 마커를 생성합니다
+    // var marker = new kakao.maps.Marker({
+    //     position: markerPosition
+    // });
+
+    // // 마커가 지도 위에 표시되도록 설정합니다
+    // marker.setMap(map);
+    var centerPosition  = new kakao.maps.LatLng(loc.place_y,loc.place_x+0.003); 
+    map.setCenter(centerPosition);
+    // setPreMarker(marker);
+}
+
+function gotoList(){
+    // if(preMarker){
+    //     preMarker.setMap(null);
+    // }
+    if(preInfo){
+        preInfo.close();
+    }
+    setFolderClick(!folderClick);
+    setFolderDetail([]);
+}
+
+
+
+function addFolder(){
+    const newfolder={
+            id:3,
+            name : '새로운 폴더',
+            place_id : []
+    }
+
+    const newfolderdata = folderdata;
+    newfolderdata.push(newfolder);
+    updateFolderData(newfolderdata);
+}
 
   return (
     <Box sx={{ flexGrow: 1, maxWidth: 900, width: 450, height: 920 }}>
@@ -93,15 +174,15 @@ function FolderClick1(data){
             <Typography sx={{ mt: 4, mb: 2 , marginLeft: 25, marginRight: 20}} variant="h6" component="div">
                 My Place 
             </Typography>
-            {folderClick1?(
+            {folderClick?(
                 <Grid item xs={12} md={15}>
-                    <button style={{display:'block', marginLeft:'15px',background:'transparent', border:'none'}}>+ 폴더 추가</button>
+                    <button onClick={()=>addFolder()} style={{display:'block', marginLeft:'15px',background:'transparent', border:'none'}}>+ 폴더 추가</button>
                 <Demo>
                     <List dense={false}>
                     {folderdata.map((folder) => (
                         <ListItem
                         key={folder.id}
-                        secondaryAction={<LongMenu/>}
+                        secondaryAction={<LongMenu folder={folder}/>}
                         >
                         <ListItemAvatar>
                             <Avatar>
@@ -110,7 +191,7 @@ function FolderClick1(data){
                         </ListItemAvatar>
                         <ListItemText
                             primary={folder.name}
-                            onClick={() => FolderClick1(folder)}
+                            onClick={() => FolderClick(folder)}
                         />
                         </ListItem>
                     ))}
@@ -121,15 +202,16 @@ function FolderClick1(data){
                 <Grid item xs={12} md={6}>
                 <Demo>
                     <List dense={false}>
-                    {folderDetail1.map((location, index)=>(
+                    {folderDetail.map((i, index)=>(
                         <ListItem key={index}>
                         <ListItemText
-                            primary={location}
+                            primary={savedlocation[i].place_name}
+                            onClick={()=>PlaceClick(savedlocation[i])}
                         />
                         </ListItem>
                     ))}
                     </List>
-                    <button onClick={()=>setFolderClick1(!folderClick1)}>목록으로</button>
+                    <button onClick={()=>gotoList()}>목록으로</button>
                 </Demo>
                 </Grid>
             

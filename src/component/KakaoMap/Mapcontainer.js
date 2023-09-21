@@ -2,26 +2,35 @@ import React, { useEffect, useState, useRef } from 'react';
 //import '../css/sidebar.css';
 import { saveLocation } from './savelocation';
 import { SearchStore } from '../../zustand/SearchStore';
+import SearchPlace from './SearchPlace';
+import { MapStore } from '../../zustand/MapStore';
 
 const { kakao } = window;
 
-const MapContainer = ({ searchPlace }) => {
+const MapContainer = () => {
+  const {map,setMap }=MapStore();
+  const {place}=SearchStore();
   const {searchOn}=SearchStore();
+  const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+  const [isInfoWindowOpen,setIsInfoWindowOpen]=useState(false);
+
+  //var isInfoWindowOpen = false; // 인포윈도우 상태를 추적하는 변수
+
+  //닫기 누를 때 검색 목록 닫고 마커 제거
   function handleSearchClick(){
     SearchStore.setState({searchOn:false});
-    // markers.current에 저장된 모든 마커를 반복하면서 지도에서 제거
-  markers.current.forEach((marker) => {
-    marker.setMap(null);
-  });
-
-  // markers 배열 비우기
-  markers.current = [];
+    infowindow.close();
+    setIsInfoWindowOpen(false);
+    markers.current.forEach((marker) => {// markers.current에 저장된 모든 마커를 반복하면서 지도에서 제거
+      marker.setMap(null);
+    });
+    markers.current = [];// markers 배열 비우기
   }
 
   // 장소 목록
   const PlaceList = ({ places }) => {
     return (
-      <div className="place-list" style={{border:'solid black 2px', height:'96%'}}>
+      <div className="place-list" style={{height:'96%'}}>
         <button onClick={()=>handleSearchClick()}>닫기</button>
         <ul style={{marginTop:'80px'}}>
           {places.map((place, index) => (
@@ -76,24 +85,25 @@ const MapContainer = ({ searchPlace }) => {
   const placesToDisplay = places.slice(startIndex, endIndex);
 
   // const [selectedPlace, setSelectedPlace] = useState(null);
+  
 
   useEffect(() => {
-    const container = document.getElementById('map');
-    const options = {
-      center: new kakao.maps.LatLng(33.450701, 126.570667),
-      level: 3,
-    };
+    // const container = document.getElementById('map');
+    // const options = {
+    //   center: new kakao.maps.LatLng(33.450701, 126.570667),
+    //   level: 3,
+    // };
 
-    const map = new kakao.maps.Map(container, options);
+    // const map = new kakao.maps.Map(container, options);
 
     // 장소 검색 객체를 생성
     const ps = new kakao.maps.services.Places();
 
     // 인포윈도우 생성
-    let infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+    
 
     // 키워드로 장소를 검색
-    ps.keywordSearch(searchPlace, placesSearchCB);
+    ps.keywordSearch(place, placesSearchCB);
 
     // 키워드 검색 완료 시 호출되는 콜백함수
     function placesSearchCB(data, status, pagination) {
@@ -132,19 +142,18 @@ const MapContainer = ({ searchPlace }) => {
       // 마커를 markers 배열에 저장
       markers.current.push(marker);
 
-      let isInfoWindowOpen = false; // 인포윈도우 상태를 추적하는 변수
-
+      
       const handleSaveLocation = () => {
         alert(place.id +'/'+ place.x +'/'+ place.y);
         saveLocation(place.place_name, place.address_name, place.phone, place.y, place.x);
         console.log(place.y, place.x);
         infowindow.close();
-        isInfoWindowOpen = false;
+        setIsInfoWindowOpen(false);
       };
       const handleaddtoFolder = () => {
-        
+        alert('click');
         infowindow.close();
-        isInfoWindowOpen = false;
+        setIsInfoWindowOpen(false);
       };
 
       // 마커에 클릭 이벤트 등록
@@ -156,7 +165,7 @@ const MapContainer = ({ searchPlace }) => {
             ${place.place_name}
             <br />
             <button id="saveButton">저장</button>
-            <button id="addButton">폴더 추가</button>
+            <button id="addButton">기록 추가</button>
           </div>
           `);
           infowindow.open(map, marker);
@@ -169,7 +178,7 @@ const MapContainer = ({ searchPlace }) => {
             if (addButton) addButton.addEventListener('click', handleaddtoFolder);
           }, 0);
           
-          isInfoWindowOpen = true;
+          setIsInfoWindowOpen(true);
         } else {
           infowindow.close();
           // 선택한 장소 정보 초기화 및 '저장' 버튼의 이벤트 리스너 제거
@@ -180,20 +189,21 @@ const MapContainer = ({ searchPlace }) => {
           const addButton = document.getElementById('addButton');
             if (addButton) addButton.addEventListener('click', handleaddtoFolder);
 
-          isInfoWindowOpen = false;
+          setIsInfoWindowOpen(false);
         }
 
         const moveLatLon = new window.kakao.maps.LatLng(place.y, place.x);
         map.panTo(moveLatLon);
       });
     }
-  }, [searchPlace]);
+  }, [place]);
 
   return (
     <div style={{ display: 'flex'}}>
+
       {searchOn?(
         <div>{places.length > 0 && (
-          <div className="sidebar" style={{border:'solid red 2px', height:'100vh', width:'400px', position:'absolute', zIndex:'10', right:'0px', top:'0px', backgroundColor:'#FCF7EC'}}>
+          <div className="sidebar" style={{height:'100vh', width:'400px', position:'absolute', zIndex:'10', right:'0px', top:'0px', backgroundColor:'#FCF7EC'}}>
             <PlaceList places={placesToDisplay} />
             <div style={{textAlign:'center'}}>
               <button onClick={prevPage} disabled={currentPage === 1}>
@@ -210,7 +220,7 @@ const MapContainer = ({ searchPlace }) => {
         <></>
       )}
       
-      <div
+      {/* <div
         id="map"
         style={{
           //   position: 'absolute',
@@ -218,7 +228,7 @@ const MapContainer = ({ searchPlace }) => {
           width: '100vw',
           height: '100vh', // 지도의 높이 설정
         }}
-      ></div>
+      ></div> */}
     </div>
   );
 };
