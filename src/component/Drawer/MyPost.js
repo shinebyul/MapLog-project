@@ -71,7 +71,8 @@ function MyPost(){
                     {/* <button style={{marginLeft:'350px', border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>ViewByPlace()}>장소별로 보기</button> onClick={()=>setType(3) */}
                     <div style={{height:'88vh'}}>
                         <ul style={{listStyle:'none'}}>
-                            {PostData.map(post =>( //PostData.map(post =>(
+                            {console.log(PostData)}
+                            {/* {PostData.map(post =>( //PostData.map(post =>(
                                 <li 
                                     key={post.id} 
                                     style={{borderBottom:'solid 1px black', 
@@ -84,7 +85,7 @@ function MyPost(){
                                         overflow:'hidden',
                                         textOverflow:'ellipsis'
                                         }}>{post.title}</div></li>
-                            ))}
+                            ))} */}
                         </ul> 
                     </div>
                 </div>;

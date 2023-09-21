@@ -9,8 +9,27 @@ function Prac() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
+  //이미지
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null); // 이미지 미리보기 URL
 
   const apiUrl = "http://3.39.142.157:8000/postcreate/"; // 실제 API의 URL로 변경해야 합니다.
+
+  //이미지
+  const handleFileChange = (acceptedFiles) => {
+    if (acceptedFiles && acceptedFiles.length > 0) {
+      const file = acceptedFiles[0];
+      setSelectedFile(file);
+
+      // 이미지 미리보기 URL 생성
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        setPreviewUrl(fileReader.result);
+      };
+      fileReader.readAsDataURL(file);
+    }
+  };
+  //
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +44,9 @@ function Prac() {
     formData.append("author", author);
     formData.append("title", title);
     formData.append("content", content);
+    if (selectedFile) {
+      formData.append("image", selectedFile); // 서버로 파일 업로드
+    }
 
     try {
       const response = await axios.post(apiUrl, formData, {
@@ -98,7 +120,7 @@ function Prac() {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div style={{display :'flex', marginLeft:'215px'}}>
+        <div style={{display :'flex', marginLeft:'25vw'}}>
           <label>content :</label>
           <textarea
             style={{marginLeft:'20px', marginBottom:'20px', width:'300px', height:'200px'}}
@@ -106,9 +128,37 @@ function Prac() {
             onChange={(e) => setContent(e.target.value)}
           />
         </div>
+        <div>
+          <label>사진 업로드 :</label>
+          <Dropzone onDrop={handleFileChange}>
+            {({ getRootProps, getInputProps }) => (
+              <div
+                {...getRootProps()}
+                className="dropzone"
+                style={{
+                  border: "2px dashed #ccc",
+                  borderRadius: "4px",
+                  padding: "20px",
+                  textAlign: "center",
+                }}
+              >
+                <input {...getInputProps()} />
+                {previewUrl ? (
+                  <img
+                    src={previewUrl}
+                    alt="미리보기"
+                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                  />
+                ) : (
+                  <p>사진을 업로드하려면 파일을 끌어다 놓거나 클릭하세요.</p>
+                )}
+              </div>
+            )}
+          </Dropzone>
+        </div>
         <button type="submit">저장</button>
       </form>
-      <div>
+      {/* <div>
         <button onClick={onClick}>불러오기</button>
         {data && (
           <textarea
@@ -117,7 +167,7 @@ function Prac() {
             readOnly={true}
           />
         )}
-      </div>
+      </div> */}
       {/* {data && (
         <textarea
           rows={7}

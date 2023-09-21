@@ -5,10 +5,6 @@
 }
 .postform input{
     height: 25px;
-    margin-right: 60px;
-}
-.postform textarea{
-    margin-left: 150px;
 }
 .postform{
     text-align: center;
