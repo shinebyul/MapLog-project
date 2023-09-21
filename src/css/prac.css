@@ -1,0 +1,18 @@
+.postform input, .postform textarea{
+    border: none;
+    border-radius: 10px;
+    padding-left: 20px;
+}
+.postform input{
+    height: 25px;
+    margin-right: 60px;
+}
+.postform textarea{
+    margin-left: 150px;
+}
+.postform{
+    text-align: center;
+    background-color : #AFC2AE;
+    padding-top: 100px;
+    height: 100vh;
+}

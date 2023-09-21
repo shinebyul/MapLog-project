@@ -6,7 +6,7 @@ import SearchPlace from "./SearchPlace";
 import { MapStore } from "../../zustand/MapStore";
 
 
-const {kakao}=window;
+const { kakao } = window;
 
 function Map(){
 
@@ -20,14 +20,14 @@ function Map(){
             const lat = position.coords.latitude, // 위도
             lon = position.coords.longitude; // 경도
 
-            const locPosition = new window.kakao.maps.LatLng(lat, lon);
-        });
+      const locPosition = new window.kakao.maps.LatLng(lat, lon);
+    });
 
-        if (container.current) {
-            const options = {
-                center: new window.kakao.maps.LatLng(33.450701, 126.570667),
-                level: 3,
-            };
+    if (container.current) {
+      const options = {
+        center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3,
+      };
 
             const initialMap = new window.kakao.maps.Map(container.current, options);
             setMap(initialMap);
@@ -44,16 +44,16 @@ function Map(){
             const lat = position.coords.latitude, // 위도
             lon = position.coords.longitude; // 경도
 
-            const locPosition = new window.kakao.maps.LatLng(lat, lon);
-            const marker = new window.kakao.maps.Marker({ position: locPosition });
+        const locPosition = new window.kakao.maps.LatLng(lat, lon);
+        const marker = new window.kakao.maps.Marker({ position: locPosition });
 
-            marker.setMap(map);
-            map.setCenter(locPosition); // 마커가 위치한 중심으로 이동
-        });
-        } else {
-        alert("현재 위치를 받아오지 못했습니다.");
-        }
-    };
+        marker.setMap(map);
+        map.setCenter(locPosition); // 마커가 위치한 중심으로 이동
+      });
+    } else {
+      alert("현재 위치를 받아오지 못했습니다.");
+    }
+  };
 
     
 
@@ -68,10 +68,8 @@ function Map(){
 }
 export default Map;
 
-
 {
-
-    /*
+  /*
      
     useEffect(() => {
         if (map) {

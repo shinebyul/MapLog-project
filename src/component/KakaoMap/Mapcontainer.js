@@ -4,6 +4,7 @@ import { saveLocation } from './savelocation';
 import { SearchStore } from '../../zustand/SearchStore';
 import SearchPlace from './SearchPlace';
 import { MapStore } from '../../zustand/MapStore';
+import { useNavigate } from 'react-router-dom';
 
 const { kakao } = window;
 
@@ -13,6 +14,8 @@ const MapContainer = () => {
   const {searchOn}=SearchStore();
   const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
   const [isInfoWindowOpen,setIsInfoWindowOpen]=useState(false);
+
+  const navigate=useNavigate();
 
   //var isInfoWindowOpen = false; // 인포윈도우 상태를 추적하는 변수
 
@@ -144,11 +147,11 @@ const MapContainer = () => {
 
       
       const handleSaveLocation = () => {
-        alert(place.id +'/'+ place.x +'/'+ place.y);
-        saveLocation(place.place_name, place.address_name, place.phone, place.y, place.x);
-        console.log(place.y, place.x);
+        console.log(place.id +'/'+ place.x +'/'+ place.y);
+        //saveLocation(place.place_name, place.address_name, place.phone, place.y, place.x);
         infowindow.close();
         setIsInfoWindowOpen(false);
+        navigate("/Prac");
       };
       const handleaddtoFolder = () => {
         alert('click');

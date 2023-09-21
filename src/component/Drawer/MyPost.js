@@ -68,10 +68,10 @@ function MyPost(){
         // type=0 이면 전체보기
         if(type===0){
             return <div>
-                    <button style={{marginLeft:'350px', border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>ViewByPlace()}>장소별로 보기</button> {/* onClick={()=>setType(3) */}
+                    {/* <button style={{marginLeft:'350px', border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>ViewByPlace()}>장소별로 보기</button> onClick={()=>setType(3) */}
                     <div style={{height:'88vh'}}>
                         <ul style={{listStyle:'none'}}>
-                            {mypostdata.map(post =>( //PostData.map(post =>(
+                            {PostData.map(post =>( //PostData.map(post =>(
                                 <li 
                                     key={post.id} 
                                     style={{borderBottom:'solid 1px black', 
@@ -151,7 +151,7 @@ function MyPost(){
 
     return(
          <div style={{width:'500px', overflow:'auto', backgroundColor:'#FCF7EC'}}>
-             <h2 style={{paddingLeft:'45px'}}>내 기록</h2>
+             <h2 style={{marginLeft:'200px', marginTop:'40px'}}>My Post</h2>
              <MyPostView/>
          </div>
     );
