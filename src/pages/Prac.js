@@ -120,7 +120,7 @@ function Prac() {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div style={{display :'flex', marginLeft:'25vw'}}>
+        <div style={{display :'flex', marginLeft:'37%'}}>
           <label>content :</label>
           <textarea
             style={{marginLeft:'20px', marginBottom:'20px', width:'300px', height:'200px'}}

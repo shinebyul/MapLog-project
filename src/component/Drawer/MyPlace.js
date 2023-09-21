@@ -68,11 +68,15 @@ import Typography from '@mui/material/Typography';
 import { savedlocation } from '../../data';
 import { MapStore } from '../../zustand/MapStore';
 import { updateFolderData } from '../../data';
+//folder에 장소 추가 관련
+import { placeStore } from '../../zustand/PlaceStore';
 
 const {kakao}=window;
 
 export default function MyPlace() {
   const {map,setMap}=MapStore();
+  //folder에 장소 추가 관련
+  const {folderlist}=placeStore();
 
   const Demo = styled('div')(({ theme }) => ({
     backgroundColor: '#FCF7EC',
@@ -179,7 +183,7 @@ function addFolder(){
                     <button onClick={()=>addFolder()} style={{display:'block', marginLeft:'15px',background:'transparent', border:'none'}}>+ 폴더 추가</button>
                 <Demo>
                     <List dense={false}>
-                    {folderdata.map((folder) => (
+                    {folderlist.map((folder) => (
                         <ListItem
                         key={folder.id}
                         secondaryAction={<LongMenu folder={folder}/>}

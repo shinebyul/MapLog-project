@@ -5,6 +5,7 @@ import { SearchStore } from '../../zustand/SearchStore';
 import SearchPlace from './SearchPlace';
 import { MapStore } from '../../zustand/MapStore';
 import { useNavigate } from 'react-router-dom';
+import { placeStore } from '../../zustand/PlaceStore';
 
 const { kakao } = window;
 
@@ -16,6 +17,8 @@ const MapContainer = () => {
   const [isInfoWindowOpen,setIsInfoWindowOpen]=useState(false);
 
   const navigate=useNavigate();
+  const navigate1=useNavigate();
+  const {selectedPlace} = placeStore();
 
   //var isInfoWindowOpen = false; // 인포윈도우 상태를 추적하는 변수
 
@@ -154,9 +157,11 @@ const MapContainer = () => {
         navigate("/Prac");
       };
       const handleaddtoFolder = () => {
-        alert('click');
+        //alert('click');
+        placeStore.setState({selectedPlace:place.id});
         infowindow.close();
         setIsInfoWindowOpen(false);
+        navigate1("/AddToFolder");
       };
 
       // 마커에 클릭 이벤트 등록
@@ -167,8 +172,8 @@ const MapContainer = () => {
             <div style="padding:5px;font-size:12px;">
             ${place.place_name}
             <br />
-            <button id="saveButton">저장</button>
-            <button id="addButton">기록 추가</button>
+            <button id="saveButton">기록하기</button>
+            <button id="addButton">폴더에 추가</button>
           </div>
           `);
           infowindow.open(map, marker);

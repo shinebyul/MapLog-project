@@ -17,6 +17,25 @@ var folderdata=[
     }
 ]
 
+//폴더 데이터
+var newfolderdata=[
+    {
+        id : 0,
+        name : '폴더1',
+        place_id : [7949668, 21801734, 22730592]//이태원 경리단길
+    },
+    {
+        id : 1,
+        name : '폴더2',
+        place_id: [17884751,1451273565,1017964919]
+    },
+    {
+        id : 2,
+        name : '폴더3',
+        place_id : [7949668, 634902312]
+    }
+]
+
 function updateFolderData(newData) {
   folderdata = newData;
 }
@@ -115,6 +134,15 @@ var savedlocation=[
         place_x : 129.1101638324846,
         place_y : 37.51734570193119
     },
+    {
+        place_id : 22730592,
+        place_name : '경리단길',
+        place_address : '서울 용산구 이태원동 210-5',
+        place_road_address : '',
+        place_phone : '',
+        place_x : 126.991721972247,
+        place_y : 37.5397580614249
+    },
     ////
 ]
 
@@ -190,4 +218,4 @@ var mypostdata=[
 
 
 
-export {folderdata, userdata, mypostdata,  savedlocation, updateFolderData};
+export {folderdata, userdata, mypostdata,  savedlocation, updateFolderData, newfolderdata};
