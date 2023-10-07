@@ -13,7 +13,7 @@ function Prac() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null); // 이미지 미리보기 URL
 
-  const apiUrl = "http://3.39.142.157:8000/postcreate/"; // 실제 API의 URL로 변경해야 합니다.
+  const apiUrl = "http://localhost:8000/postcreate/"; 
 
   //이미지
   const handleFileChange = (acceptedFiles) => {
@@ -70,47 +70,10 @@ function Prac() {
 
   const [data, setData] = useState();
 
-  const onClick = async () => {
-    try {
-      const response = await axios.get("http://3.39.142.157:8000/postlist/", {
-        withCredentials: true,
-      });
-      setData(response.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  // const handleFetchData = async () => {
-  //   try {
-  //     const response = await axios.get(apiUrl2);
-  //     const data = response.data;
-  //     console.log('ok1');
-
-  //     // 데이터에서 title 값만 추출하여 배열에 저장
-  //     const titles = data.map((item) => item.title);
-  //     console.log('ok2');
-
-  //     setTitleList(titles);
-  //     console.log('ok3');
-  //   } catch (error) {
-  //     console.error("데이터를 불러오는 중 오류가 발생했습니다:", error);
-  //   }
-  // };
-
   return (
     <div className="postform">
       <h1>Post Create</h1>
       <form onSubmit={handleSubmit}>
-        {/* <div style={{marginBottom:'20px'}}>
-          <label>author:</label>
-          <input
-            style={{marginLeft:'20px'}}
-            type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-        </div> */}
         <div>
           <label>title :</label>
           <input
@@ -158,23 +121,6 @@ function Prac() {
         </div>
         <button type="submit">저장</button>
       </form>
-      {/* <div>
-        <button onClick={onClick}>불러오기</button>
-        {data && (
-          <textarea
-            rows={7}
-            value={JSON.stringify(data, null, 2)}
-            readOnly={true}
-          />
-        )}
-      </div> */}
-      {/* {data && (
-        <textarea
-          rows={7}
-          value={JSON.stringify(data, null, 2)}
-          readOnly={true}
-        />
-      )} */}
       <Link to="/">홈으로</Link>
     </div>
   );

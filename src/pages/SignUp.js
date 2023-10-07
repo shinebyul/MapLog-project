@@ -6,6 +6,7 @@ import "../css/signup.css";
 import "../css/Map.css";
 
 const SignUp = (props) => {
+  //4ㅜ2
   //이름, 이메일, 비밀번호, 비밀번호 확인
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -96,7 +97,7 @@ const SignUp = (props) => {
 
     axios
       .post(
-        "http://3.39.142.157:8000/register/", //http://ec2-43-200-8-152.ap-northeast-2.compute.amazonaws.com:8000/register/
+        "http://localhost:8000/register/",
         {
           username: name,
           useremail: id,

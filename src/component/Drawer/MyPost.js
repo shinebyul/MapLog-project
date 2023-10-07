@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { postData } from "../Api/PostData";
 import { uniqBy, filter } from "lodash";
+import { useNavigate } from "react-router-dom";
 //this
 import { mypostdata } from "../../data";//new
 import { savedlocation } from "../../data";//new
+import axios from "axios";
 
 function MyPost(){
     
@@ -63,6 +65,25 @@ function MyPost(){
         setType(2);
     }
 
+    
+    //기록 수정
+    const navigate=useNavigate();
+    function postEdit(){
+        navigate('/EditPost',{state:{postDetail}});
+    }
+
+    //기록 삭제
+   const postdelete=async(id)=>{
+    try {
+        await axios.delete(`http://localhost:8000/postdel/${id}`);
+        console.log(`기록 ID ${id}가 성공적으로 삭제되었습니다.`);
+      } catch (error) {
+        console.error(`기록 삭제 중 오류 발생: ${error}`);
+      }
+
+      setType(prePage);
+   }
+
 
     function MyPostView(data){
         // type=0 이면 전체보기
@@ -72,7 +93,7 @@ function MyPost(){
                     <div style={{height:'88vh'}}>
                         {/* {console.log('postdata: '+ PostData)} */}
                         <ul style={{listStyle:'none'}}>
-                            {PostData.map(post =>( //PostData.map(post =>(
+                            {PostData&&PostData.map(post =>( //PostData.map(post =>(
                                 <li 
                                     key={post.id} 
                                     style={{borderBottom:'solid 1px black', 
@@ -91,56 +112,65 @@ function MyPost(){
                 </div>;
         }
         // type=3 이면 장소별로 보기
-        else if(type===3){
-            return <div>
-                    <button style={{marginLeft:'390px', border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>setType(0)}>전체 보기</button>   {/* onClick={()=>setType(0) */}
-                    <div style={{height:'88vh'}}> 
-                        <ul style={{listStyle:'none'}}>
-                            {placeLists.map(data =>( //viewByPlace.map(post =>(
-                                <li 
-                                    key={data.place_id} 
-                                    style={{borderBottom:'solid 1px black', 
-                                    width:'90%', paddingBottom:'5px'}}>
-                                    <button
-                                        onClick={()=>PlaceClick(data.place_id)} 
-                                        style={{background:'transparent', 
-                                        border:'none'}}>{data.place_name}</button></li>//border:'none'}}>{post.userId}</button></li>
-                            ))}
-                        </ul>        
-                    </div>
-                </div>;
-        }
-        // type =1이면 장소에 저장된 기록 목록
-        else if(type===1){
-            setPrePage(3);
-            return <div>
-                <div style={{height:'90vh'}}>
-                    <ul style={{listStyle:'none'}}>
-                        {postList.map((data)=>(
-                            <li 
-                                style={{borderBottom:'solid 1px black', 
-                                width:'90%', paddingBottom:'5px'}}>
-                                <button 
-                                    onClick={()=>PostClick(data)}
-                                    style={{background:'transparent', 
-                                    border:'none'}}>{data.title}</button></li>
-                        ))}
-                    </ul>
-                    <div style={{display:'flex', marginTop:'30px', width:'85%', marginLeft:'35px'}}>
-                        <button style={{marginRight:'auto',border:'none', background:'transparent', fontWeight:'bold'}}>삭제</button>
-                        <button style={{border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>setType(prePage)}>목록으로</button>
-                    </div>
-                </div>
-            </div>
-        }
+        // else if(type===3){
+        //     return <div>
+        //             <button style={{marginLeft:'390px', border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>setType(0)}>전체 보기</button>   {/* onClick={()=>setType(0) */}
+        //             <div style={{height:'88vh'}}> 
+        //                 <ul style={{listStyle:'none'}}>
+        //                     {placeLists&&placeLists.map(data =>( //viewByPlace.map(post =>(
+        //                         <li 
+        //                             key={data.place_id} 
+        //                             style={{borderBottom:'solid 1px black', 
+        //                             width:'90%', paddingBottom:'5px'}}>
+        //                             <button
+        //                                 onClick={()=>PlaceClick(data.place_id)} 
+        //                                 style={{background:'transparent', 
+        //                                 border:'none'}}>{data.place_name}</button></li>//border:'none'}}>{post.userId}</button></li>
+        //                     ))}
+        //                 </ul>        
+        //             </div>
+        //         </div>;
+        // }
+        // // type =1이면 장소에 저장된 기록 목록
+        // else if(type===1){
+        //     setPrePage(3);
+        //     return <div>
+        //         <div style={{height:'90vh'}}>
+        //             <ul style={{listStyle:'none'}}>
+        //                 {postList&&postList.map((data)=>(
+        //                     <li 
+        //                         style={{borderBottom:'solid 1px black', 
+        //                         width:'90%', paddingBottom:'5px'}}>
+        //                         <button 
+        //                             onClick={()=>PostClick(data)}
+        //                             style={{background:'transparent', 
+        //                             border:'none'}}>{data.title}</button></li>
+        //                 ))}
+        //             </ul>
+        //             <div style={{display:'flex', marginTop:'30px', width:'85%', marginLeft:'35px'}}>
+        //                 <button style={{marginRight:'auto',border:'none', background:'transparent', fontWeight:'bold'}}>삭제</button>
+        //                 <button style={{border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>setType(prePage)}>목록으로</button>
+        //             </div>
+        //         </div>
+        //     </div>
+        // }
         // type =2 이면 상세 기록 내용
         else{
             return <div style={{padding:'45px'}}>
                 <div style={{height:'80.5vh'}}>
                     <h3>{postDetail? postDetail.title:''}</h3>
                     <p>{postDetail? postDetail.content:''}</p>{/* <p>{postDetail? postDetail.body:''}</p>*/}
+                    {/* 여기 밑에 이미지 첨부 */}
+                    {postDetail && ( 
+                    <img  src={`http://localhost:8000${postDetail.image_url}`} style={{maxWidth:'300px'}}/>
+                    )}
                     <div style={{display:'flex', marginTop:'30px'}}>
-                        <button style={{marginRight:'auto',border:'none', background:'transparent', fontWeight:'bold'}}>삭제</button>
+                        <button 
+                            style={{marginRight:'auto',border:'none', background:'transparent', fontWeight:'bold'}}
+                            onClick={()=>postdelete(postDetail.id)}>삭제</button>
+                        <button 
+                            style={{marginRight:'auto',border:'none', background:'transparent', fontWeight:'bold'}}
+                            onClick={()=>postEdit()}>수정</button>
                         <button style={{border:'none', background:'transparent', fontWeight:'bold'}} onClick={()=>setType(prePage)}>목록으로</button>
                     </div>
                 </div>

@@ -68,6 +68,7 @@ import Typography from '@mui/material/Typography';
 import { savedlocation } from '../../data';
 import { MapStore } from '../../zustand/MapStore';
 import { updateFolderData } from '../../data';
+import { useNavigate } from 'react-router-dom';
 //folder에 장소 추가 관련
 import { placeStore } from '../../zustand/PlaceStore';
 
@@ -158,18 +159,19 @@ function gotoList(){
     setFolderDetail([]);
 }
 
-
+const navigate=useNavigate();
 
 function addFolder(){
-    const newfolder={
-            id:3,
-            name : '새로운 폴더',
-            place_id : []
-    }
+    // const newfolder={
+    //         id:3,
+    //         name : '새로운 폴더',
+    //         place_id : []
+    // }
 
-    const newfolderdata = folderdata;
-    newfolderdata.push(newfolder);
-    updateFolderData(newfolderdata);
+    // const newfolderdata = folderdata;
+    // newfolderdata.push(newfolder);
+    // updateFolderData(newfolderdata);
+    navigate("/AddFolder");
 }
 
   return (

@@ -62,7 +62,6 @@ const Main=(props)=>{
         <div id='home'>
             <div className='mainbar'>
                 <Link to="/"><button className='homebtn'>4N</button></Link>
-                <Link to="/Prac"><button style={{backgroundColor:'transparent', color:'white'}}>pra</button></Link> 
                 <button onClick={()=>MypostClick()} className={mypost?'btnActive':'btnInactive'}>내기록</button>
                 <button onClick={()=>MyplaceClick()} className={myplace?'btnActive':'btnInactive'}>내장소</button> 
                 <button onClick={()=>MypageClick()} className={mypage?'btnActive':'btnInactive'} style={{marginBottom:'40vh'}}>마이페이지</button>

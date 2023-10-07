@@ -60,7 +60,7 @@ const Login = (props) => {
   const gotoLogin = () => {
     axios
       .post(
-        "http://3.39.142.157:8000/login/",
+        "http://localhost:8000/login/",
         {
           useremail: id,
           password: password,
