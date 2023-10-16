@@ -6,7 +6,7 @@ import { LoginStore } from "../zustand/LoginStore"; //별추가-로그인상태 
 axios.defaults.withCredentials = true;
 
 const Login = (props) => {
-  const { isLogin } = LoginStore(); //별추가-로그인상태 넘기기
+  const { isLogin , login} = LoginStore(); //별추가-로그인상태 넘기기
 
   const Rest_api_key = "c684aed1126dd79ff99c6f8e0964d4fa"; //REST API KEY
   const redirect_uri = "http://3.39.142.157:8000/kakao/"; //Redirect URI
@@ -71,7 +71,9 @@ const Login = (props) => {
       )
       .then((result) => {
         console.log(result.data);
-        LoginStore.setState({ isLogin: true }); //별추가-로그인상태 설정
+        //LoginStore.setState({ isLogin: true }); //별추가-로그인상태 설정
+        login();
+        localStorage.setItem('isLogin','true'); //별 추 - 로그인 상태 유지 개선 localStorage사용
         alert("로그인 성공");
         navigate("/");
       })

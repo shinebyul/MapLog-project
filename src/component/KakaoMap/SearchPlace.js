@@ -25,7 +25,7 @@ const SearchPlace = () => {
   return (
     <>
       <form className="inputForm" onSubmit={handleSubmit} style={{position:'absolute', zIndex:'20', right:'20px', top:'30px'}}>
-        <input placeholder="Search Place..." onChange={onChange} value={inputText} />
+        <input placeholder="Search Place..." style={{border:'none', borderRadius:'5px', marginRight:'5px' }} onChange={onChange} value={inputText} />
         <button type="submit">검색</button>
       </form>
       {/* <MapContainer searchPlace={place} /> */}
