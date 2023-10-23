@@ -9,27 +9,31 @@ function Prac() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
-  //이미지
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null); // 이미지 미리보기 URL
+  // 이미지
+  const [selectedFiles, setSelectedFiles] = useState([]); // 여러 이미지 선택을 위한 배열
+  const [previewUrls, setPreviewUrls] = useState([]); // 이미지 미리보기 URL 배열
 
-  const apiUrl = "http://localhost:8000/postcreate/"; 
+  const apiUrl = "http://localhost:8000/postcreate/";
 
-  //이미지
+  // 이미지
   const handleFileChange = (acceptedFiles) => {
-    if (acceptedFiles && acceptedFiles.length > 0) {
-      const file = acceptedFiles[0];
-      setSelectedFile(file);
+    const files = acceptedFiles.slice(0, 5); // 최대 5장까지 선택 가능하도록 제한
 
-      // 이미지 미리보기 URL 생성
+    // 이미지 미리보기 URL 배열 생성
+    const fileReaders = files.map((file) => {
       const fileReader = new FileReader();
       fileReader.onload = () => {
-        setPreviewUrl(fileReader.result);
+        const newPreviewUrl = fileReader.result;
+        setPreviewUrls((prevUrls) => [...prevUrls, newPreviewUrl]);
       };
       fileReader.readAsDataURL(file);
-    }
+      return fileReader;
+    });
+
+    Promise.all(fileReaders).then((results) => {
+      setSelectedFiles(files);
+    });
   };
-  //
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,9 +48,9 @@ function Prac() {
     formData.append("author", author);
     formData.append("title", title);
     formData.append("content", content);
-    if (selectedFile) {
-      formData.append("image", selectedFile); // 서버로 파일 업로드
-    }
+    selectedFiles.forEach((file) => {
+      formData.append("images", file);
+    });
 
     try {
       const response = await axios.post(apiUrl, formData, {
@@ -68,8 +72,6 @@ function Prac() {
     }
   };
 
-  const [data, setData] = useState();
-
   return (
     <div className="postform">
       <h1>Post Create</h1>
@@ -77,16 +79,21 @@ function Prac() {
         <div>
           <label>title :</label>
           <input
-            style={{marginBottom:'20px', marginLeft:'20px'}}
+            style={{ marginBottom: "20px", marginLeft: "20px" }}
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div style={{display :'flex', marginLeft:'37%'}}>
+        <div style={{ display: "flex", marginLeft: "37%" }}>
           <label>content :</label>
           <textarea
-            style={{marginLeft:'20px', marginBottom:'20px', width:'300px', height:'200px'}}
+            style={{
+              marginLeft: "20px",
+              marginBottom: "20px",
+              width: "300px",
+              height: "200px",
+            }}
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
@@ -106,14 +113,19 @@ function Prac() {
                 }}
               >
                 <input {...getInputProps()} />
-                {previewUrl ? (
-                  <img
-                    src={previewUrl}
-                    alt="미리보기"
-                    style={{ maxWidth: "100%", maxHeight: "200px" }}
-                  />
+                {previewUrls.length > 0 ? (
+                  <div>
+                    {previewUrls.map((url, index) => (
+                      <img
+                        key={index}
+                        src={url}
+                        alt={`미리보기 ${index + 1}`}
+                        style={{ maxWidth: "100%", maxHeight: "200px" }}
+                      />
+                    ))}
+                  </div> 
                 ) : (
-                  <p>사진을 업로드하려면 파일을 끌어다 놓거나 클릭하세요.</p>
+                  <p>사진을 업로드하려면 파일을 끌어다 놓거나 클릭하세요. (최대 5장)</p>
                 )}
               </div>
             )}
@@ -127,84 +139,3 @@ function Prac() {
 }
 
 export default Prac;
-
-// import * as React from 'react';
-// import { styled } from '@mui/material/styles';
-// import Box from '@mui/material/Box';
-// import List from '@mui/material/List';
-// import ListItem from '@mui/material/ListItem';
-// import ListItemAvatar from '@mui/material/ListItemAvatar';
-// import ListItemText from '@mui/material/ListItemText';
-// import Avatar from '@mui/material/Avatar';
-// import Grid from '@mui/material/Grid';
-// import FolderIcon from '@mui/icons-material/Folder';
-// import LongMenu from '../component/More';
-
-// import { folderdata } from '../data';
-
-// export default function InteractiveList() {
-
-//   function generate(element) {
-//     return [0, 1, 2].map((value) =>
-//       React.cloneElement(element, {
-//         key: value,
-//       }),
-//     );
-//   }
-
-//   const Demo = styled('div')(({ theme }) => ({
-//     backgroundColor: theme.palette.background.paper,
-//   }));
-
-//   return (
-//     <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
-//       <Grid container spacing={2}>
-//         <Grid item xs={12} md={6}>
-//           <Demo>
-//             <List dense={false}>
-//               {generate(
-//                 <ListItem
-//                   secondaryAction={
-//                     <LongMenu/>
-//                   }
-//                 >
-//                   <ListItemAvatar>
-//                     <Avatar>
-//                       <FolderIcon />
-//                     </Avatar>
-//                   </ListItemAvatar>
-//                   <ListItemText
-//                     onClick={()=>alert('hi')}
-//                     primary="Single-line item"
-//                   />
-//                 </ListItem>
-//               )}
-//             </List>
-//           </Demo>
-//         </Grid>
-//       </Grid>
-//     </Box>
-//   );
-// }
-
-//1b29c3da7f864557bdbe17354b06c965
-// import { useState, useEffect } from "react";
-// import { newsData } from "../component/Api/NewsData";
-
-// function Prac(){
-//   const[Data,setData]=useState([]);
-//   useEffect(()=>{
-//     async function fetchData(){
-//         const data=await Data();
-//         setData(data);
-//     }
-//     fetchData();
-//   },[]);
-//   return(
-//     <div>
-//       {Data && <textarea row={7} value={JSON.stringify(Data, null, 2)} readOnly={true} />}
-//     </div>
-//   );
-// }
-
-// export default Prac;import React, {useState } from 'react';
