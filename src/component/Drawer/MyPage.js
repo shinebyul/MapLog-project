@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { userdata } from "../../data";
+import { LoginStore } from "../../zustand/LoginStore";
 
 function MyPage() {
   //회원탈퇴
@@ -20,21 +21,25 @@ function MyPage() {
     }
   };
 
+  const {LoginMail, LoginName} = LoginStore();
+
   return (
-    <div>
+    <div style={{width:'500px',height:'100vh',marginTop:'-15px' , backgroundColor:'#FCF7EC'}}>
       <h3>마이페이지</h3>
       <span>이름</span>
       <span>
-        {userdata.map((data) => (
+        {/* {userdata.map((data) => (
           <span>{data.name}</span>
-        ))}
+        ))} */}
+        {LoginName}
       </span>
       <br />
       <span>이메일</span>
       <span>
-        {userdata.map((data) => (
+        {/* {userdata.map((data) => (
           <span>{data.id}</span>
-        ))}
+        ))} */}
+        {LoginMail}
       </span>
       <br />
       <button onClick={handleDeleteProfile}>회원탈퇴</button>

@@ -95,12 +95,6 @@ const Main=(props)=>{
 
             <div>
                 <MiniBar/>
-                {/* <input 
-                    className='find'
-                    type='text'
-                    placeholder='어떤 장소를 찾으시나요?'
-                ></input>  */}
-                {/* <SearchPlace/> */}
                 <Map/>
             </div>
         </div>

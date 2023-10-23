@@ -3,6 +3,7 @@ import {create} from 'zustand';
 export const LoginStore = create((set)=>({
     isLogin : false, //false
     LoginMail : '',
-    login:()=>set({isLogin:true}),
+    LoginName : '',
+    login:(mail, name)=>set({isLogin:true, LoginMail : mail, LoginName : name}),
     logout:()=>set({isLogin:false}),
 }));
