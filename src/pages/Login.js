@@ -102,6 +102,7 @@ const Login = (props) => {
           <button type="submit">Submit</button>
         </form>
       </div>
+      <Link to='/FindIdPw'>아이디/비밀번호 찾기</Link>
     </div>
   );
 };

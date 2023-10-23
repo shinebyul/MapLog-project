@@ -6,6 +6,7 @@ import Prac from './pages/Prac';
 import AddToFolder from './pages/AddToFolder';
 import AddFolder from './pages/AddFolder';
 import EditPost from './pages/EditPost';
+import FindIdPw from './pages/FindIdPw';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/AddToFolder/*" element={<AddToFolder />}></Route>
             <Route path="/AddFolder/*" element={<AddFolder />}></Route>
             <Route path="/EditPost/*" element={<EditPost />}></Route>
+            <Route path="/FindIdPw/*" element={<FindIdPw />}></Route>
         </Routes>
     </BrowserRouter>
     </div>
