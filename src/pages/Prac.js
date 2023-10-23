@@ -49,7 +49,7 @@ function Prac() {
     formData.append("title", title);
     formData.append("content", content);
     selectedFiles.forEach((file) => {
-      formData.append("images", file);
+      formData.append("image", file);
     });
 
     try {
@@ -123,7 +123,7 @@ function Prac() {
                         style={{ maxWidth: "100%", maxHeight: "200px" }}
                       />
                     ))}
-                  </div> 
+                  </div>
                 ) : (
                   <p>사진을 업로드하려면 파일을 끌어다 놓거나 클릭하세요. (최대 5장)</p>
                 )}

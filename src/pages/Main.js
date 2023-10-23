@@ -8,8 +8,8 @@ import MyPost from '../component/Drawer/MyPost';
 import Map from '../component/KakaoMap/Map'
 import MiniBar from '../component/MiniBar';
 import { LoginStore } from '../zustand/LoginStore';
-import Logout from '../component/Logout';
 import SearchPlace from '../component/KakaoMap/SearchPlace';
+import axios from 'axios';
 
 const Main=(props)=>{
 
@@ -19,7 +19,7 @@ const Main=(props)=>{
     const[mypage, setMypage]=useState(false);
 
     //로그인 상태
-    const {isLogin} = LoginStore();
+    const {isLogin, logout} = LoginStore();
     
     const navigate = useNavigate();
 
@@ -28,6 +28,25 @@ const Main=(props)=>{
             navigate('/Login');
         }
     }
+
+    //로그아웃
+    const handleLogout = () => {
+        if (window.confirm("로그아웃 하시겠습니까?")) {
+          axios
+            .get("http://localhost:8000/logout/")
+            .then((result) => {
+              logout();
+              localStorage.removeItem("isLogin");
+              alert("로그아웃 성공");
+              navigate("/");
+            })
+            .catch((result) => {
+              alert("로그인 되어있지 않음");
+              navigate("/");
+            });
+        }
+      }
+
 
 
     function MypostClick(){
@@ -66,7 +85,7 @@ const Main=(props)=>{
                 <button onClick={()=>MyplaceClick()} className={myplace?'btnActive':'btnInactive'}>내장소</button> 
                 <button onClick={()=>MypageClick()} className={mypage?'btnActive':'btnInactive'} style={{marginBottom:'40vh'}}>마이페이지</button>
                 {isLogin?
-                    <button onClick={()=>Logout()} style={{backgroundColor:'#AFC2AE', color:'white'}}>로그아웃</button>
+                    <button onClick={handleLogout} style={{backgroundColor:'#AFC2AE', color:'white'}}>로그아웃</button>
                     :<Link to="/Login"><button className='loginbtn'>로그인</button></Link>} 
             </div>
 
