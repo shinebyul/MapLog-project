@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
-import "../css/prac.css";
+import "../css/postcreate.css";
 import { useState } from "react";
 import axios from "axios";
 import Dropzone from "react-dropzone";

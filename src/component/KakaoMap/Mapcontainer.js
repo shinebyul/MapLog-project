@@ -154,7 +154,7 @@ const MapContainer = () => {
         //saveLocation(place.place_name, place.address_name, place.phone, place.y, place.x);
         infowindow.close();
         setIsInfoWindowOpen(false);
-        navigate("/Prac");
+        navigate("/PostCreate");
       };
       const handleaddtoFolder = () => {
         //alert('click');

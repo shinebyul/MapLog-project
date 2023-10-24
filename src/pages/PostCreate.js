@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import Dropzone from "react-dropzone";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import "../css/prac.css";
+import "../css/postcreate.css";
 
-function Prac() {
+function PostCreate() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
@@ -138,4 +138,4 @@ function Prac() {
   );
 }
 
-export default Prac;
+export default PostCreate;
