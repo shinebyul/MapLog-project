@@ -36,6 +36,7 @@ const Main=(props)=>{
             .get("http://localhost:8000/logout/")
             .then((result) => {
               logout();
+              //LoginStore.setState({ isLogin: false });
               localStorage.removeItem("isLogin");
               alert("로그아웃 성공");
               navigate("/");

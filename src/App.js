@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
-import Prac from './pages/PostCreate';
+import PostCreate from './pages/PostCreate';
 import AddToFolder from './pages/AddToFolder';
 import AddFolder from './pages/AddFolder';
 import EditPost from './pages/EditPost';

@@ -113,27 +113,26 @@ const MapContainer = () => {
 
     // 키워드 검색 완료 시 호출되는 콜백함수
     function placesSearchCB(data, status, pagination) {
+      console.log(place);
       if (status === kakao.maps.services.Status.OK) {
+
         // 이전 마커들을 지우기
         markers.current.forEach((marker) => {
           marker.setMap(null);
         });
-
         // 검색 결과를 상태에 업데이트
         setPlaces(data);
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가
         let bounds = new kakao.maps.LatLngBounds();
-
+        
         // 새로운 마커들을 저장하기 위해 빈 배열 초기화
         markers.current = [];
-
         for (let i = 0; i < data.length; i++) {
           displayMarker(data[i]);
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
         }
-
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정
         map.setBounds(bounds);
       }

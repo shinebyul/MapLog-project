@@ -21,6 +21,7 @@ function Map(){
             lon = position.coords.longitude; // 경도
 
       const locPosition = new window.kakao.maps.LatLng(lat, lon);
+
     });
 
     if (container.current) {
