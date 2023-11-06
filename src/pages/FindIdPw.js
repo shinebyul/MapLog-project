@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { result } from "lodash";
@@ -7,8 +7,9 @@ function FindIdPw(){
 
     const[name,setName]=useState('');
     const[id,setId]=useState('');
-    const[findedId,setFindedId]=useState('');
-    const[findedPw, setFindedPw]=useState('');
+    const[findedId,setFindedId]=useState(null);
+    const[findedPw, setFindedPw]=useState(null);
+
 
     async function FindId() {
         try {
@@ -24,7 +25,7 @@ function FindIdPw(){
 
       async function FindPw() {
         try {
-          const response = await axios.post('http://localhost:8000/findpw/',{
+          const response = await axios.post('http://localhost:8000/findpassword/',{
             usermail:id,
           });
           console.log(response);

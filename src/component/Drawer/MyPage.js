@@ -28,17 +28,11 @@ function MyPage() {
       <h3>마이페이지</h3>
       <span>이름</span>
       <span>
-        {/* {userdata.map((data) => (
-          <span>{data.name}</span>
-        ))} */}
         {LoginName}
       </span>
       <br />
       <span>이메일</span>
       <span>
-        {/* {userdata.map((data) => (
-          <span>{data.id}</span>
-        ))} */}
         {LoginMail}
       </span>
       <br />
