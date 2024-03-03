@@ -17,6 +17,6 @@
   - SQLight
   - AWS(EC2)
 ### 🗓️Plan
-<img src="![4nERd.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/69ddc4fa-bd12-4fa4-afdf-df0ede283c65/4nERd.png)">
+<img width="100" height="auto" src="![4nERd](https://github.com/shinebyul/MapLog-project/assets/114556143/65088ea6-7434-45fa-8ed7-062fc4b23daf)">
 
 
