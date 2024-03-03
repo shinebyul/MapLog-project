@@ -17,5 +17,6 @@
   - SQLight
   - AWS(EC2)
 ### 🗓️Plan
+<img src="![4nERd.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/69ddc4fa-bd12-4fa4-afdf-df0ede283c65/4nERd.png)">
 
 
