@@ -2,6 +2,9 @@
 
 ### ⏰개발기간
 - 2023.06 ~ 2023.12
+
+### 📺시연 영상
+https://youtu.be/_agvMB7dfk0?si=pLTCWLs0BLaGwxfr
   
 ### 👥Team
 - FrontEnd - 한별
