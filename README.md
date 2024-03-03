@@ -4,7 +4,9 @@
 - 2023.06 ~ 2023.12
 
 ### 📺시연 영상
-https://youtu.be/_agvMB7dfk0?si=pLTCWLs0BLaGwxfr
+https://youtu.be/_agvMB7dfk0?si=pLTCWLs0BLaGwxfr <br/><br/>
+<img width="500" height="auto" src="./img/시연1.png">
+<img width="500" height="auto" src="./img/시연2.png">
   
 ### 👥Team
 - FrontEnd - 한별
