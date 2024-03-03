@@ -20,6 +20,6 @@
 #### 메뉴 구성도
 <img width="500" height="auto" src="./img/4nERd.png">
 #### ERD
-<img width="500" height="auto" src="./img/4nERd.png">
+<img width="500" height="auto" src="./img/menu.png">
 
 
