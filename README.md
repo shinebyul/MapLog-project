@@ -9,7 +9,7 @@
 - BackEnd - 김민성, 임서하
   
 
-### Role
+### 👤Role
 1. FrontEnd : 
   - 회원가입 ui 구현 및 api연결
   - 로그아웃 기능 구현
