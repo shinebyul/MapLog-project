@@ -32,9 +32,9 @@
 
 ### 📌Skill
 - FrontEnd
-  - H
+  - Html
   - CSS
-  - Javascript
+  - JavaScript
   - React
   - Kakao Map API
   - Zustand
